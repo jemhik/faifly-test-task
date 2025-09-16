@@ -1,0 +1,26 @@
+# Maven
+/target/
+!.mvn/wrapper/maven-wrapper.jar
+.mvn/
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+out/
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Docker local data volumes (if ever bind-mounting)
+mysql8_data/
+
+# Env files
+.env
+
+# Node/others (if any)
+node_modules/
