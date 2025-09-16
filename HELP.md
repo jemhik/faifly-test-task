@@ -5,8 +5,7 @@
 - What happens on first start:
   - A MySQL 8 container named `mysql8` starts.
   - It creates a database named `faifly` and automatically executes the SQL dump at `src/main/resources/db/mysql-dump.sql`.
-    - We mount that dump into the container as `/docker-entrypoint-initdb.d/mysql-dump.sql`.
-    - An init script (`docker/mysql-init/20-mysql-dump.sql`) runs `SOURCE /docker-entrypoint-initdb.d/mysql-dump.sql` to import it.
+    - We mount that dump into the container as `/docker-entrypoint-initdb.d/mysql-dump.sql` and MySQL auto-runs any .sql files there.
   - Data persists in the `mysql8_data` volume; the dump is auto-applied only on the very first start (or after `down -v`).
 - To reset and re-seed: `docker compose down -v` then `docker compose up -d`.
 
@@ -45,4 +44,6 @@ If your container is named `mysql8` and root password is `secret`:
 - Endpoints:
   - POST `/visits` — create a visit
   - GET `/patients` — list patients with optional `page`, `size`, `search`, `doctorIds`
+
+> Note: The `docker/` directory is no longer used by docker-compose. You can safely delete it from your repository if you prefer a leaner tree.
 

@@ -9,9 +9,7 @@ services:
       - "3306:3306"
     volumes:
       - mysql8_data:/var/lib/mysql
-      # Auto-run initialization scripts on first container start (empty data dir)
-      - ./docker/mysql-init:/docker-entrypoint-initdb.d
-      # Mount the application dump once; init script will SOURCE it
+      # Auto-run: MySQL entrypoint executes any .sql files in this directory on first start (empty data dir)
       - ./src/main/resources/db/mysql-dump.sql:/docker-entrypoint-initdb.d/mysql-dump.sql:ro
 volumes:
   mysql8_data:
