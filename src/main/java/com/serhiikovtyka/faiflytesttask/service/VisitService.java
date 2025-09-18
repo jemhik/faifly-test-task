@@ -64,9 +64,13 @@ public class VisitService {
         Instant startUtc = startZoned.toInstant();
         Instant endUtc = endZoned.toInstant();
 
-        boolean overlap = visitRepository.existsOverlap(doctor.getId(), startUtc, endUtc);
-        if (overlap) {
+        boolean doctorOverlap = visitRepository.existsOverlap(doctor.getId(), startUtc, endUtc);
+        if (doctorOverlap) {
             throw new BadRequestException("Doctor already has a visit overlapping this time");
+        }
+        boolean patientOverlap = visitRepository.existsOverlapForPatient(patient.getId(), startUtc, endUtc);
+        if (patientOverlap) {
+            throw new BadRequestException("Patient already has a visit overlapping this time");
         }
 
         Visit visit = new Visit(startUtc, endUtc, patient, doctor);
